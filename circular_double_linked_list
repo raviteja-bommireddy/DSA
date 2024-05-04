@@ -1,0 +1,319 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node{                      //declaration of a structure
+    int data;
+    struct node *next;
+    struct node *prev;
+};
+
+struct node *head = NULL;
+struct node *tail = NULL;
+
+void create(){                           //creating a node
+    struct node *newnode;
+    newnode = (struct node*)malloc(sizeof(struct node));
+    printf("Enter the data\n");
+    scanf("%d",&newnode->data);
+    newnode->next = NULL;
+    newnode->prev = NULL;
+    if(head == NULL){
+        head = newnode;
+        tail = newnode;
+        head->next = tail;
+        head->prev = tail;
+        tail->next = head;
+        tail->prev = head;
+    }
+    else{
+        tail->next = newnode;
+        newnode->prev = tail;
+        newnode->next = head;
+        head->prev = newnode;
+        tail = newnode;
+    }
+}
+
+void insertb(){                //inserting a node at the beginning
+    struct node *newnode;
+    newnode = (struct node*)malloc(sizeof(struct node));
+    printf("Enter the data\n");
+    scanf("%d",&newnode->data);
+    newnode->next = NULL;
+    newnode->prev = NULL;
+    if(head == NULL){
+        head = newnode;
+        tail = newnode;
+        head->next = tail;
+        head->prev = tail;
+        tail->next = head;
+        tail->prev = head;
+    }
+    else{
+        newnode->next = head;
+        head->prev = newnode;
+        head = newnode;
+        head->prev = tail;
+        tail->next = head;
+    }
+}
+
+void inserte(){                     //inserting a node at the end
+    struct node *newnode;
+    newnode = (struct node*)malloc(sizeof(struct node));
+    printf("Enter the data\n");
+    scanf("%d",&newnode->data);
+    newnode->next = NULL;
+    newnode->prev = NULL;
+    if(head == NULL){
+        head = newnode;
+        tail = newnode;
+        head->next = tail;
+        head->prev = tail;
+        tail->next = head;
+        tail->prev = head;
+    }
+    else{
+        tail->next = newnode;
+        newnode->prev = tail;
+        newnode->next = head;
+        head->prev = newnode;
+        tail = newnode;
+    }
+}
+
+void insertpa(){                //inserting after a particular node
+    int key;
+    printf("Enter the data after which you want to insert\n");
+    scanf("%d",&key);
+    struct node *temp = head;
+    while(temp != NULL && temp->data != key){
+        temp = temp->next;
+    }
+    if(temp == NULL){
+        printf("Key not found\n");
+        return;
+    }
+    struct node *newnode;
+    newnode = (struct node*)malloc(sizeof(struct node));
+    printf("Enter the data\n");
+    scanf("%d",&newnode->data);
+    newnode->next = NULL;
+    newnode->prev = NULL;
+    newnode->next = temp->next;
+    newnode->prev = temp;
+    temp->next->prev = newnode;
+    temp->next = newnode;
+}
+
+void insertpb(){           //inserting before a particular node
+    int key;
+    printf("Enter the data before which you want to insert\n");
+    scanf("%d",&key);
+    struct node *temp = head;
+    while(temp != NULL && temp->data != key){
+        temp = temp->next;
+    }
+    if(temp == NULL){
+        printf("Key not found\n");
+        return;
+    }
+    struct node *newnode;
+    newnode = (struct node*)malloc(sizeof(struct node));
+    printf("Enter the data\n");
+    scanf("%d",&newnode->data);
+    newnode->next = NULL;
+    newnode->prev = NULL;
+    newnode->prev = temp->prev;
+    newnode->next = temp;
+    temp->prev->next = newnode;
+    temp->prev = newnode;
+}
+
+void insertpp(){             //inserting at a particular node
+    int pos;
+    printf("Enter the position\n");
+    scanf("%d",&pos);
+    struct node *temp = head;
+    for(int i = 1; i < pos-1 && temp != NULL; i++){
+        temp = temp->next;
+    }
+    if(temp == NULL){
+        printf("Invalid position\n");
+        return;
+    }
+    struct node *newnode;
+    newnode = (struct node*)malloc(sizeof(struct node));
+    printf("Enter the data\n");
+    scanf("%d",&newnode->data);
+    newnode->next = NULL;
+    newnode->prev = NULL;
+    newnode->next = temp->next;
+    newnode->prev = temp;
+    temp->next->prev = newnode;
+    temp->next = newnode;
+}
+
+void deleteb(){           //deleting at beginning
+    if(head == NULL){
+        printf("the linked list is empty\n");
+        return;
+    }
+    if(head->next == head){
+        free(head);
+        head = NULL;
+        tail = NULL;
+        return;
+    }
+    head = head->next;
+    free(head->prev);
+    head->prev = tail;
+    tail->next = head;
+}
+
+void deletee(){           //deleting at the end
+    if(head == NULL){
+        printf("the linked list is empty\n");
+        return;
+    }
+    if(head->next == head){
+        free(head);
+        head = NULL;
+        tail = NULL;
+        return;
+    }
+    tail = tail->prev;
+    free(tail->next);
+    tail->next = head;
+    head->prev = tail;
+}
+
+void deletepa(){         //deleting after a particular node
+    int key;
+    printf("Enter the data after which you want to delete\n");
+    scanf("%d",&key);
+    struct node *temp = head;
+    while(temp != NULL && temp->data != key){
+        temp = temp->next;
+    }
+    if(temp == NULL || temp->next == head){
+        printf("Key not found or no node exists after it\n");
+        return;
+    }
+    struct node *temp1 = temp->next;
+    temp->next = temp1->next;
+    temp1->next->prev = temp;
+    free(temp1);
+}
+
+void deletepb(){          //deleting before a particular node
+    int key;
+    printf("Enter the data before which you want to delete\n");
+    scanf("%d",&key);
+    struct node *temp = head;
+    while(temp != NULL && temp->data != key){
+        temp = temp->next;
+    }
+    if(temp == NULL || temp->prev == head){
+        printf("Key not found or no node exists before it\n");
+        return;
+    }
+    struct node *temp1 = temp->prev;
+    temp1->prev->next = temp;
+    temp->prev = temp1->prev;
+    free(temp1);
+}
+
+void deletepp(){          //deleting at a particular position
+    int pos;
+    printf("Enter the position\n");
+    scanf("%d",&pos);
+    struct node *temp = head;
+    for(int i = 1; i < pos && temp != NULL; i++){
+        temp = temp->next;
+    }
+    if(temp == NULL){
+        printf("Invalid position\n");
+        return;
+    }
+    if(temp == head){
+        deleteb();
+        return;
+    }
+    if(temp->next == head){
+        deletee();
+        return;
+    }
+    temp->prev->next = temp->next;
+    temp->next->prev = temp->prev;
+    free(temp);
+}
+
+void reverse(){          //reversing a linked list
+    if(head == NULL){
+        printf("the linked list is empty\n");
+        return;
+    }
+    struct node *temp = head;
+    struct node *temp1 = NULL;
+    do{
+        temp1 = temp->prev;
+        temp->prev = temp->next;
+        temp->next = temp1;
+        temp = temp->prev;
+    }while(temp != head);
+    head = temp1->prev;
+}
+
+void display(){  //displaying a linked list
+    if(head == NULL){
+        printf("the linked list is empty\n");
+        return;
+    }
+    struct node *temp = head;
+    printf("Elements of the linked list are: ");
+    do{
+        printf("%d ",temp->data);
+        temp = temp->next;
+    }while(temp != head);
+    printf("\n");
+}
+
+void main(){
+    int ch;        //integer to select the function
+    do{
+        printf("\nEnter a number from 1 to 13\n");
+        printf("1 to create a node,\n2 to insert at beginning,\n3 to insert at end,\n4 to insert after a particular node,\n5 to insert before a particular node,\n6 to insert at a particular position,\n7 to delete at beginning,\n");
+        printf("8 to delete at end,\n9 to delete after a particular node,\n10 to delete before a particular node,\n11 to delete at a particular position,\n12 to reverse,\n13 to display,\n0 to exit\n");
+        scanf("%d",&ch);
+        switch(ch){
+            case 1: create();
+            break;
+            case 2: insertb();
+            break;
+            case 3: inserte();
+            break;
+            case 4: insertpa();
+            break;
+            case 5: insertpb();
+            break;
+            case 6: insertpp();
+            break;
+            case 7: deleteb();
+            break;
+            case 8: deletee();
+            break;
+            case 9: deletepa();
+            break;
+            case 10: deletepb();
+            break;
+            case 11: deletepp();
+            break;
+            case 12: reverse();
+            break;
+            case 13: display();
+            break;
+            default: printf("Invalid position\n ");
+        }
+    }while(ch != 0);
+}
