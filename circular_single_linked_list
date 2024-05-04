@@ -1,0 +1,354 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node{                      //declaration of a structure
+    int data;
+    struct node *next;
+};
+struct node *head = NULL;
+struct node *tail = NULL;
+
+void create(){                           //creating a node
+    struct node *newnode;
+    newnode = (struct node*)malloc(sizeof(struct node));
+    printf("Enter the data\n");
+    scanf("%d",&newnode->data);
+    newnode->next = NULL;
+    if(head==NULL){
+        head = newnode;
+        tail = newnode;
+        tail->next = head;
+    }
+    else{
+        tail->next = newnode;
+        tail = newnode;
+        tail->next = head;
+    }
+}
+
+void insertb(){                //inserting a node at the beginning
+    struct node *newnode;
+    newnode = (struct node*)malloc(sizeof(struct node));
+    printf("Enter the data\n");
+    scanf("%d",&newnode->data);
+    newnode->next = NULL;
+    if(head==NULL){
+        head = newnode;
+        tail = newnode;
+        tail->next = head;
+    }
+    else{
+        newnode->next = head;
+        head = newnode;
+        tail->next = head;
+    }
+}
+
+void inserte(){                     //inserting a node at the end
+    struct node *newnode;
+    newnode = (struct node*)malloc(sizeof(struct node));
+    printf("Enter the data\n");
+    scanf("%d",&newnode->data);
+    newnode->next = NULL;
+    if(head==NULL){
+        head = newnode;
+        tail = newnode;
+        tail->next = head;
+    }
+    else{
+        tail->next = newnode;
+        newnode->next = head;
+        tail = newnode;
+    }
+}
+int length(){             //to find the length of the linked list
+    struct node *temp = head;
+    int i = 0;
+    do{
+        temp = temp->next;
+        i++;
+    }while(temp != head);
+    return i;
+}
+
+void insertpa(){                //inserting after a particular node
+    int i = 0,n;
+    printf("Enter the number\n");
+    scanf("%d",&n);
+    struct node *newnode,*temp=head;
+        newnode = (struct node*)malloc(sizeof(struct node));
+        printf("Enter the data\n");
+        scanf("%d",&newnode->data);
+        newnode->next = NULL;
+    while(temp->next != head){
+        if(temp->data==n){
+            newnode->next = temp->next;
+            temp->next = newnode;
+            i = 1;
+        }
+        temp = temp->next;
+    }
+    if(i==0){
+        printf("the linked list does not contain this data\n");
+    }
+}
+
+void insertpp(){             //inserting at a particular node
+    int i = 1,pos;
+    printf("Enter the position\n");
+    scanf("%d",&pos);
+    int count = length();
+    if(pos > count || pos <= 0){
+        printf("Invalid position\n");
+    }
+    else{
+        struct node *newnode,*temp=head;
+        newnode = (struct node*)malloc(sizeof(struct node));
+        printf("Enter the data\n");
+        scanf("%d",&newnode->data);
+        newnode->next = NULL;
+        while(i < pos-1){
+            temp = temp->next;
+            i++;
+        }
+        newnode->next = temp->next;
+        temp->next = newnode;
+    }
+}
+
+void insertpb(){           //inserting before a particular node
+    int i = 0,n;
+    printf("Enter the number\n");
+    scanf("%d",&n);
+    struct node *newnode,*temp=head,*temp1;
+        newnode = (struct node*)malloc(sizeof(struct node));
+        printf("Enter the data\n");
+        scanf("%d",&newnode->data);
+        newnode->next = NULL;
+    while(temp->next != head){
+        if(temp->data==n){
+            newnode->next = temp1->next;
+            temp1->next = newnode;
+            i = 1;
+        }
+        temp1 = temp;
+        temp = temp->next;
+    }
+    if(i==0){
+        printf("the linked list does not contain this data\n");
+    }
+}
+
+void deleteb(){           //deleting at beginning
+    if(head == NULL){
+        printf("the linked list is empty\n");
+    }
+    else if(head->next == head){
+        free(head);
+        head = NULL;
+        tail = NULL;
+    }
+    else{
+        struct node *temp = head;
+        head = head->next;
+        temp->next = NULL;
+        tail->next = head;
+        free(temp);
+        temp = NULL;
+    }
+}
+
+void deletee(){           //deleting at the end
+   if(head == NULL){
+        printf("the linked list is empty\n");
+    }
+    else if(head->next == head){
+        free(head);
+        head = NULL;
+        tail = NULL;
+    }
+    else{
+        struct node *temp = head;
+        while(temp->next != tail){
+            temp = temp->next;
+        }
+        temp->next = head;
+        tail->next = NULL;
+        free(tail);
+        tail = temp;
+    }
+}
+
+ 
+
+void deletepp(){          //deleting at a particular position
+   if(head == NULL){
+        printf("the linked list is empty\n");
+    }
+    else if(head->next == head){
+        free(head);
+        head = NULL;
+        tail = NULL;
+    }
+    else{
+        int i = 1,pos;
+        printf("Enter the position\n");
+        scanf("%d",&pos);
+        int count = length();
+        if(pos > count || pos <= 0){
+            printf("Invalid position\n");
+        }
+        else{
+            struct node *temp = head,*temp1;
+            while(i < pos-1){
+                temp = temp->next;
+                i++;
+            }
+            temp1 = temp->next;
+            temp->next = temp1->next;
+            temp1->next = NULL;
+            free(temp1);
+            temp1 = NULL;
+        }
+    }
+}
+
+void deletepa(){         //deleting after a particular node
+    if(head == NULL){
+        printf("the linked list is empty\n");
+    }
+    else if(head->next == head){
+        free(head);
+        head = NULL;
+        tail = NULL;
+    }
+    else{
+        struct node *temp = head,*temp1;
+        int i = 0,n;
+        printf("Enter the number\n");
+        scanf("%d",&n);
+        while(temp->next != head){
+            if(temp->data==n){
+                temp1 = temp->next;
+                temp->next = temp1->next;
+                temp1->next = NULL;
+                free(temp1);
+                temp1 = NULL;
+                i = 1;
+            }
+            temp = temp->next;
+        }
+        if(i == 0){
+            printf("the linked list does not contain this data\n ");
+        }
+    }
+}
+
+void deletepb(){          //deleting before a particular node
+    if(head == NULL){
+        printf("the linked list is empty\n");
+    }
+    else if(head->next == head){
+        free(head);
+        head = NULL;
+        tail = NULL;
+    }
+    else{
+        struct node *temp = head;
+        struct node *temp1 = head,*temp2;
+        int i = 0,n;
+        printf("Enter the number\n");
+        scanf("%d",&n);
+        while(temp->next != head){
+             if(temp->data == n){
+                 if(head->next == temp){
+                     deleteb();
+                     i = 1;
+                 }
+             else{
+                while(temp1->next->next != temp){
+                    temp1 = temp1->next;
+                }
+                temp2 = temp1->next;
+                temp1->next = temp2->next;
+                temp2->next = NULL;
+                free(temp2);
+                temp2 = NULL;
+                i = 1;
+             }}
+            temp = temp->next;
+        }
+        if(i == 0){
+            printf("the linked list does not contain this data\n ");
+        }
+    }
+}
+
+void reverse(){          //reversing a linked list
+    tail->next = NULL;
+    tail = head;
+    struct node *prev,*nextnode,*curr;
+    prev=NULL;
+    curr = head;
+    nextnode = head;
+    while(nextnode != NULL){
+        nextnode = nextnode->next;
+        curr->next = prev;
+        prev = curr;
+        curr = nextnode;
+    }
+    head = prev;
+    tail->next = head;
+}
+
+void display(){  //dispalying a linked list
+    if(head==NULL){
+        printf("the linked list is empty\n");
+    }
+    else{
+    struct node *temp = head;
+    do{
+        printf("%d ",temp->data);
+        temp = temp->next;
+    }while(temp != head);
+}
+}
+
+void main(){
+    int ch;        //integer to select the function
+    do{
+        printf("\nEnter a number from 1 to 13\n");
+        printf("1 to create a node,\n2 to insert at beginning,\n3 to insert at end,\n4 to insert after a particular node,\n5 to insert before a particular node,\n6 to insert at a particular position,\n7 to delete at beginning,\n");
+        printf("8 to delete at end,\n9 to delete before a particular node,\n10 to delete after a particular node,\n11 to delete at a particular position,\n12 to reverse,\n13 to display,\n0 to exit\n");
+        scanf("%d",&ch);
+        switch(ch){
+            case 1: create();
+            break;
+            case 2: insertb();
+            break;
+            case 3: inserte();
+            break;
+            case 4: insertpa();
+            break;
+            case 5: insertpb();
+            break;
+            case 6: insertpp();
+            break;
+            case 7: deleteb();
+            break;
+            case 8: deletee();
+            break;
+            case 9: deletepb();
+            break;
+            case 10: deletepa();
+            break;
+            case 11: deletepp();
+            break;
+            case 12: reverse();
+            break;
+            case 13: display();
+            break;
+            default: printf("Invalid position\n ");
+        }
+    }while(ch != 0);
+}
