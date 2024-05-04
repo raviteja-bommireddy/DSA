@@ -62,10 +62,10 @@ here you can check all data structures and algorithms codes and logics using c l
 (‌13)dispaly the elements
 
 ##stack & queue
-‌stack implementation by arrays
-‌queue implementation by arrays
-‌stack implementation by linked list
-‌queue implementation by linked list
+‌(1)stack implementation by arrays
+(‌2)queue implementation by arrays
+‌(3)stack implementation by linked list
+‌(4)queue implementation by linked list
 
 
 # non-linear dta structures
