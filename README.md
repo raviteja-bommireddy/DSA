@@ -3,7 +3,7 @@ here you can check all data structures and algorithms codes and logics using c l
 # linear data structures.
 
 you cann refer to my article on linear daat structures which is absolute revision article for it:
-https://medium.com/@raviteja_2005/h-guru-kaun-ka-ek-hai-is-dj-kaun-ka-aaj-idk-kal-ka-ek-ka-xi-if-fb-33132e017790
+    https://medium.com/@raviteja_2005/h-guru-kaun-ka-ek-hai-is-dj-kaun-ka-aaj-idk-kal-ka-ek-ka-xi-if-fb-33132e017790
 
 ---**single linked list**
 ‌  1)creating node 
