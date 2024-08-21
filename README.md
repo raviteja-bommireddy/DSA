@@ -3,6 +3,7 @@ here you can check all data structures and algorithms codes and logics using c l
 # linear data structures.
 
 you cann refer to my article on linear daat structures which is absolute revision article for it:
+
   https://medium.com/@raviteja_2005/h-guru-kaun-ka-ek-hai-is-dj-kaun-ka-aaj-idk-kal-ka-ek-ka-xi-if-fb-33132e017790
 
 ---**single linked list**
@@ -61,4 +62,5 @@ you cann refer to my article on linear daat structures which is absolute revisio
 ![image](https://github.com/user-attachments/assets/256d01f0-dbf8-4a8e-82df-86d9255f789a)
 
 For these concepts you can refer to my article which best desscribes about all of these above mentioned things: 
+
  https://medium.com/@raviteja_2005/dsa-chapter-2-non-linear-data-structures-8a8607302e87
